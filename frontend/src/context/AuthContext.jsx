@@ -14,7 +14,10 @@ export const AuthProvider = ({ children }) => {
     const refresh = localStorage.getItem('refresh_token')
     if (!refresh) throw new Error('No refresh token')
     const { default: axios } = await import('axios')
-    const { data } = await axios.post('/api/auth/token/refresh/', { refresh })
+    const { data } = await axios.post(
+      'https://personal-dev-api.onrender.com/api/auth/token/refresh/',
+      { refresh }
+    )
     setAccessToken(data.access)
     return data.access
   }, [])

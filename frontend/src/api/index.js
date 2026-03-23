@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://personal-dev-api.onrender.com/api',
   headers: { 'Content-Type': 'application/json' },
 })
-
 // Attach access token from memory
 let accessToken = null
 
@@ -28,7 +27,7 @@ api.interceptors.response.use(
       try {
         const refresh = localStorage.getItem('refresh_token')
         if (!refresh) throw new Error('No refresh token')
-        const { data } = await axios.post('/api/auth/token/refresh/', { refresh })
+        const { data } =await axios.post('https://personal-dev-api.onrender.com/api/auth/token/refresh/', { refresh })
         setAccessToken(data.access)
         original.headers.Authorization = `Bearer ${data.access}`
         return api(original)
