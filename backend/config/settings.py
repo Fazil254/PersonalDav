@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'corsheaders',
     'django_filters',
     'crispy_forms',
     'crispy_bootstrap5',
@@ -41,14 +40,15 @@ INSTALLED_APPS = [
     'habits',
     'journal',
     'dashboard',
+    'corsheaders',
 ]
 
 # ── Middleware ─────────────────────────────────────────────────────────────────
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -152,9 +152,10 @@ SIMPLE_JWT = {
 }
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-CORS_ALLOW_ALL_ORIGINS  = True   # allow all during development/early production
 CORS_ALLOW_CREDENTIALS  = True
-
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
 # Once you know your exact Vercel URL, set CORS_ALLOW_ALL_ORIGINS = False
 # and uncomment + fill in the list below:
 # CORS_ALLOW_ALL_ORIGINS = False
